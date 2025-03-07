@@ -39,6 +39,8 @@
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config": "^1.0.2",
+    "@milkdown/kit": "^7.6.2",
+    "@milkdown/theme-nord": "^7.6.2",
     "@rushstack/eslint-patch": "^1.10.5",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/eslint-config-prettier": "^10.2.0",
@@ -47,8 +49,12 @@
     "electron-vite": "^2.3.0",
     "eslint": "^9.20.0",
     "eslint-plugin-vue": "^9.32.0",
+    "install": "^0.13.0",
+    "less": "^4.2.2",
     "prettier": "^3.4.2",
+    "pug": "^3.0.3",
     "vite": "^6.1.0",
-    "vue": "^3.5.13"
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
   }
 }
