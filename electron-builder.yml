@@ -1,5 +1,5 @@
-appId: com.electron.app
-productName: thrush-md
+appId: top.cyyjs.thrush
+productName: Thrush
 directories:
   buildResources: build
 files:

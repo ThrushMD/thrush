@@ -1,8 +1,8 @@
 {
   "productName": "Thrush",
   "description": "A markdown editor",
-  "name": "thrush-md",
-  "version": "1.0.0",
+  "name": "thrush",
+  "version": "0.0.1",
   "main": "./out/main/index.js",
   "keywords": [
     "markdown",
@@ -17,14 +17,14 @@
   "homepage": "",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git@github.com:ThrushMD/thrush.git"
   },
   "license": "MIT",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
     "start": "electron-vite preview",
-    "dev": "electron-vite dev",
+    "dev": "electron-vite dev -w",
     "build": "electron-vite build",
     "postinstall": "electron-builder install-app-deps",
     "build:unpack": "npm run build && electron-builder --dir",
@@ -38,23 +38,34 @@
     "electron-updater": "^6.3.9"
   },
   "devDependencies": {
-    "@electron-toolkit/eslint-config": "^1.0.2",
-    "@milkdown/kit": "^7.6.2",
-    "@milkdown/theme-nord": "^7.6.2",
+    "@electron-toolkit/eslint-config": "^2.0.0",
+    "@milkdown/kit": "^7.6.3",
+    "@milkdown/theme-nord": "^7.6.3",
     "@rushstack/eslint-patch": "^1.10.5",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/eslint-config-prettier": "^10.2.0",
-    "electron": "^34.1.1",
+    "ant-design-vue": "^4.2.6",
+    "electron": "^35.0.0",
     "electron-builder": "^25.1.8",
-    "electron-vite": "^2.3.0",
-    "eslint": "^9.20.0",
-    "eslint-plugin-vue": "^9.32.0",
+    "electron-vite": "^3.0.0",
+    "eslint": "^9.21.0",
+    "eslint-plugin-vue": "^10.0.0",
+    "fast-glob": "^3.3.3",
     "install": "^0.13.0",
     "less": "^4.2.2",
-    "prettier": "^3.4.2",
+    "pinia": "^3.0.1",
+    "prettier": "^3.5.3",
     "pug": "^3.0.3",
-    "vite": "^6.1.0",
+    "unplugin-vue-components": "^28.4.1",
+    "vite": "^6.2.1",
+    "vite-plugin-svg-icons": "^2.0.1",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron",
+      "esbuild"
+    ]
   }
 }

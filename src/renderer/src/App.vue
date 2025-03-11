@@ -1,24 +1,24 @@
 <script setup>
-import Versions from './components/Versions.vue'
-
-const ipcHandle = () => window.electron.ipcRenderer.send('ping')
+import Header from '@/components/Header.vue'
+import Sider from '@/components/Sider.vue'
+import { useAppTheme } from './composables/theme'
+const appTheme = useAppTheme()
 </script>
-
-<template>
-  <img alt="logo" class="logo" src="./assets/electron.svg" />
-  <div class="creator">Powered by electron-vite</div>
-  <div class="text">
-    Build an Electron app with
-    <span class="vue">Vue</span>
-  </div>
-  <p class="tip">Please try pressing <code>F12</code> to open the devTool</p>
-  <div class="actions">
-    <div class="action">
-      <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">Documentation</a>
-    </div>
-    <div class="action">
-      <a target="_blank" rel="noreferrer" @click="ipcHandle">Send IPC</a>
-    </div>
-  </div>
-  <Versions />
+<template lang="pug">
+a-config-provider(:theme="appTheme")
+  Header
+  a-layout.main
+    Sider
+    a-layout-content
+      router-view
 </template>
+<style lang="less" scoped>
+.main {
+  padding: 0 10px;
+  height: calc(~"100vh - 56px");
+  overflow: auto;
+  .ant-layout-content {
+    padding: 0 10px;
+  }
+}
+</style>

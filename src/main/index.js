@@ -11,15 +11,17 @@ function createWindow() {
     minWidth: 800,
     minHeight: 600,
     titleBarStyle: 'hidden',
+    vibrancy: 'under-window', // 添加这行
     show: false,
     autoHideMenuBar: true,
+    transparent: true,
+    trafficLightPosition: { x: 20, y: 20 },
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
     }
   })
-
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
   })
@@ -33,6 +35,7 @@ function createWindow() {
   // Load the remote URL for development or the local html file for production.
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
+    mainWindow.webContents.openDevTools()
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }

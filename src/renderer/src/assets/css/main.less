@@ -1,0 +1,14 @@
+@import "./reset.less";
+
+body {
+  background: linear-gradient(to right bottom, rgba(153, 246, 228, 0.1) 0%,  rgba(238, 238, 236, 0.1) 31%, rgba(239, 238, 236, 0.1) 75%, rgba(233, 233, 231, 0.1) 100%);
+  user-select: none;
+  backdrop-filter: blur(10px);
+}
+
+.drag {
+  -webkit-app-region: drag;
+}
+.nodrag {
+  -webkit-app-region: no-drag;
+}
