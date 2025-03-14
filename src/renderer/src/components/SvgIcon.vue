@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2025-03-11 14:25:04
  * @LastEditors: cyy
- * @LastEditTime: 2025-03-11 14:25:06
+ * @LastEditTime: 2025-03-14 16:52:49
  * @Description: 
 -->
 <template lang="pug">
@@ -29,7 +29,7 @@ export default defineComponent({
     },
     size: {
       type: [Number, String],
-      default: 0
+      default: 16
     },
   },
   setup(props) {

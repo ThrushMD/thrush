@@ -11,7 +11,8 @@ function createWindow() {
     minWidth: 800,
     minHeight: 600,
     titleBarStyle: 'hidden',
-    vibrancy: 'under-window', // 添加这行
+    vibrancy: 'under-window',
+    visualEffectState: 'active',
     show: false,
     autoHideMenuBar: true,
     transparent: true,
