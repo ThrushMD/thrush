@@ -2,11 +2,13 @@
  * @Author: cyy
  * @Date: 2025-03-14 14:29:27
  * @LastEditors: cyy
- * @LastEditTime: 2025-03-14 15:56:05
+ * @LastEditTime: 2025-03-18 12:29:57
  * @Description: 
 -->
 <script setup>
 import { ref } from 'vue'
+
+const emit = defineEmits(['select'])
 const expandedKeys = ref(['1'])
 const selectedKeys = ref(['1-1'])
 
@@ -14,36 +16,37 @@ const folderList = [
   {
     title: '文件夹',
     key: '1',
+    type: 'folder',
     children: [
       {
-        type: 'item',
+        type: 'file',
         title: 'nav 1-1',
         key: '1-1'
       },
       {
-        type: 'item',
+        type: 'file',
         title: 'nav 1-2',
         key: '1-2'
       }
     ]
   },
   {
-    type: 'group',
+    type: 'folder',
     title: 'nav 2',
     children: [
       {
-        type: 'item',
+         type: 'file',
         title: 'nav 2-1',
         key: '2-1'
       }
     ]
   },
   {
-    type: 'group',
+    type: 'folder',
     title: 'nav 3',
     children: [
       {
-        type: 'item',
+         type: 'file',
         title: 'nav 3-1',
         key: '3-1'
       }
@@ -59,6 +62,15 @@ const onDrop = (info) => {
 const addFolder = () => {
   console.log('add folder');
 }
+const onSelect = (info, e) => {
+  emit('select', e.node)
+}
+const clear = () => {
+  selectedKeys.value = []
+}
+defineExpose({
+  clear
+})
 </script>
 <template lang="pug">
 .folder
@@ -74,6 +86,7 @@ const addFolder = () => {
     :tree-data="folderList"
     @dragenter="onDragEnter"
     @drop="onDrop"
+    @select="onSelect"
   )
     template(#switcherIcon="{switcherCls}")
       span(:class="switcherCls")
@@ -98,6 +111,8 @@ const addFolder = () => {
     }
   }
   :deep(.ant-tree) {
+    max-height: calc(~'100vh - 345px');
+    overflow: auto;
     .ant-tree-treenode {
       &::before {
         border-radius: 6px;

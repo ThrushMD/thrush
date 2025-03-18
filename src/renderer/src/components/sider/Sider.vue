@@ -2,15 +2,20 @@
  * @Author: cyy
  * @Date: 2025-03-11 15:49:49
  * @LastEditors: cyy
- * @LastEditTime: 2025-03-14 17:59:15
+ * @LastEditTime: 2025-03-18 15:36:39
  * @Description: 
 -->
 <script setup>
 import { ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { useSystemStore } from '@/stores/system'
+import { usePostStore } from '@/stores/post'
 import Folder from './Folder.vue'
+import menus from '@/router/menus'
+const router = useRouter()
 const systemStore = useSystemStore()
-
+const postStore = usePostStore()
+const folderRef = ref(null)
 const open = ref(false)
 watch(
   () => systemStore.openSideBar,
@@ -21,29 +26,44 @@ watch(
     immediate: true
   }
 )
-const selectedKeys = ref(['1'])
-const menus = [
-  {
-    title: '主页',
-    key: 'home',
-    icon: 'home'
-  },
-  {
-    title: '收藏',
-    key: 'favorite',
-    icon: 'favorite'
-  },
-  {
-    title: '模版',
-    key: 'tmp',
-    icon: 'tmp'
-  },
-  {
-    title: '发布',
-    key: 'publish',
-    icon: 'publish'
+const selectedKeys = ref(['home'])
+
+const selectFile = (node) => {
+  selectedKeys.value = []
+  console.log('selectFile', node)
+  if (node.type === 'file') {
+    postStore.editPostById(node.key)
+    router.push({
+      name: 'editor',
+      query: {
+        id: node.key
+      }
+    })
+  } else {
+    postStore.setCurrentFolder({
+      _id: node.key,
+      title: node.title
+    })
+    console.log('选择目录');
   }
-]
+}
+const selectMenu = (info) => {
+  folderRef.value.clear()
+  router.push({
+    name: info.key
+  })
+}
+const goTrash = () => {
+  router.push({
+    name: 'trash'
+  })
+}
+const addFile = () => {
+  postStore.addPost()
+  router.push({
+    name: 'editor'
+  })
+}
 </script>
 <template lang="pug">
 a-layout-sider(
@@ -63,13 +83,17 @@ a-layout-sider(
         template(#title)
           span 新建文件
           span.shortcut-key ⌘ N
-        a-button.add(type="text")
+        a-button.add(type="text" @click="addFile")
           SvgIcon(name="add" size="20")
-    a-menu(v-model:selectedKeys="selectedKeys" mode='inline' :inlineIndent="5")
-      a-menu-item(v-for="item in menus" :key="item.key")
-        SvgIcon(:name="item.key")
+    a-menu(v-model:selectedKeys="selectedKeys" mode='inline' :inlineIndent="5" @select="selectMenu")
+      a-menu-item(v-for="item in menus" :key="item.name")
+        SvgIcon(:name="item.name")
         span {{ item.title }}
-  Folder
+  Folder(ref="folderRef" @select="selectFile")
+  .footer
+    a-button.trash(type="text" block @click="goTrash")
+      SvgIcon(name="trash")
+      span 回收站
 </template>
 <style lang="less" scoped>
 .ant-layout-sider {
@@ -118,6 +142,9 @@ a-layout-sider(
     margin-top: 10px;
     border: 0;
     .ant-menu-item {
+      &:active {
+        background-color: var(--bg-color-gray);
+      }
       .ant-menu-title-content {
         display: flex;
         align-items: center;
@@ -127,6 +154,19 @@ a-layout-sider(
         background-color: var(--bg-color-gray);
         color: var(--text-color);
       }
+    }
+  }
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #cccccc5e;
+    padding: 5px 0;
+    button {
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
   }
 }
