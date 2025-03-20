@@ -14,11 +14,15 @@ a-config-provider(:theme="appTheme")
 </template>
 <style lang="less" scoped>
 .main {
-  padding: 0 20px;
+  padding: 0;
   height: calc(~"100vh - 56px");
   overflow: auto;
   .ant-layout-content {
-    padding: 0 20px;
+    &>div {
+      padding: 0 20px;
+      height: 100%;
+      overflow: auto;
+    }
   }
 }
 </style>

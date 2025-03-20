@@ -19,6 +19,7 @@ declare module 'vue' {
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
     ATooltip: typeof import('ant-design-vue/es')['Tooltip']
     ATree: typeof import('ant-design-vue/es')['Tree']
+    Empty: typeof import('./src/components/Empty.vue')['default']
     Folder: typeof import('./src/components/sider/Folder.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
     MDEditor: typeof import('./src/components/editor/MDEditor.vue')['default']

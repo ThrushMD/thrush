@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2025-03-14 14:29:27
  * @LastEditors: cyy
- * @LastEditTime: 2025-03-18 12:29:57
+ * @LastEditTime: 2025-03-20 12:22:58
  * @Description: 
 -->
 <script setup>
@@ -35,7 +35,7 @@ const folderList = [
     title: 'nav 2',
     children: [
       {
-         type: 'file',
+        type: 'file',
         title: 'nav 2-1',
         key: '2-1'
       }
@@ -46,7 +46,7 @@ const folderList = [
     title: 'nav 3',
     children: [
       {
-         type: 'file',
+        type: 'file',
         title: 'nav 3-1',
         key: '3-1'
       }
@@ -60,7 +60,7 @@ const onDrop = (info) => {
   console.log('onDrop', info)
 }
 const addFolder = () => {
-  console.log('add folder');
+  console.log('add folder')
 }
 const onSelect = (info, e) => {
   emit('select', e.node)
@@ -79,6 +79,8 @@ defineExpose({
     a-tooltip(title="新建文件夹")
       a-button(type="text" @click="addFolder")
         SvgIcon(name="add-folder" size="16")
+  .empty(v-if="!folderList.length")
+    SvgIcon(name="empty" size="200")
   a-directory-tree(
     v-model:expandedKeys="expandedKeys"
     v-model:selectedKeys="selectedKeys"
@@ -94,7 +96,7 @@ defineExpose({
 </template>
 <style lang="less" scoped>
 .folder {
-  &>.header {
+  & > .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -108,6 +110,12 @@ defineExpose({
       width: 26px;
       height: 26px;
       text-align: center;
+    }
+  }
+  .empty {
+    text-align: center;
+    svg {
+      opacity: 0.6;
     }
   }
   :deep(.ant-tree) {

@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2025-03-11 15:49:49
  * @LastEditors: cyy
- * @LastEditTime: 2025-03-18 15:36:39
+ * @LastEditTime: 2025-03-20 12:33:03
  * @Description: 
 -->
 <script setup>
@@ -99,10 +99,10 @@ a-layout-sider(
 .ant-layout-sider {
   height: calc(~'100vh - 56px');
   background: transparent;
-  margin-left: -280px;
+  margin-left: -260px;
   position: relative;
   &.open {
-    margin-left: 0;
+    margin-left: 20px;
   }
   .header {
     margin-bottom: 5px;
