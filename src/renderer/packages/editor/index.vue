@@ -1,47 +1,39 @@
 <template>
-<div>{{ content }}</div>
+  <!-- <div>{{ content }}</div>
 <div>
   <button @click="editor.commands.insertDrawIo()">add drawio</button>
-</div>
-<div v-if="editor">
-  <DragHandle :editor="editor">
-    <div class="custom-drag-handle" />
-  </DragHandle>
-</div>
-<div class="main">
-  <div class="sidebar">
-    <div class="sidebar-options">
-      <div class="label-large">目录</div>
-      <div class="table-of-contents">
-        <template v-if="editor">
-          <ToC :editor="editor" :items="items" />
-        </template>
-      </div>
+</div> -->
+  <div v-if="editor">
+    <DragHandle :editor="editor">
+      <div class="custom-drag-handle" />
+    </DragHandle>
+  </div>
+  <div class="main">
+    <editor-content class="editor" :editor="editor" />
+    <div class="sidebar">
+      <template v-if="editor">
+        <ToC :editor="editor" :items="items" />
+      </template>
     </div>
   </div>
-  <editor-content class="editor" :editor="editor" />
-</div>
 </template>
 
 <script setup>
-import { watch, onUnmounted, ref } from "vue";
-import { useEditor, EditorContent } from "@tiptap/vue-3";
-import StarterKit from "@tiptap/starter-kit";
-import CodeBlockLowlight from "./extensions/codeBlockLowlight";
-import { DragHandle } from "@tiptap-pro/extension-drag-handle-vue-3";
-import NodeRange from "@tiptap-pro/extension-node-range";
-import { Mathematics } from "@tiptap-pro/extension-mathematics";
-import Placeholder from "@tiptap/extension-placeholder";
-import {
-  getHierarchicalIndexes,
-  TableOfContents,
-} from "@tiptap-pro/extension-table-of-contents";
-import ToC from "./extensions/toc/Toc.vue";
-import "katex/dist/katex.min.css";
-import drawIoExtension from "@rcode-link/tiptap-drawio";
+import { watch, onUnmounted, ref } from 'vue'
+import { useEditor, EditorContent } from '@tiptap/vue-3'
+import StarterKit from '@tiptap/starter-kit'
+import CodeBlockLowlight from './extensions/codeBlockLowlight'
+import { DragHandle } from '@tiptap-pro/extension-drag-handle-vue-3'
+import NodeRange from '@tiptap-pro/extension-node-range'
+import { Mathematics } from '@tiptap-pro/extension-mathematics'
+import Placeholder from '@tiptap/extension-placeholder'
+import { getHierarchicalIndexes, TableOfContents } from '@tiptap-pro/extension-table-of-contents'
+import ToC from './extensions/toc/Toc.vue'
+import 'katex/dist/katex.min.css'
+import drawIoExtension from '@rcode-link/tiptap-drawio'
 
-const content = defineModel({ type: String });
-const items = ref([]);
+const content = defineModel({ type: String })
+const items = ref([])
 const editor = useEditor({
   content: content.value,
   extensions: [
@@ -49,48 +41,51 @@ const editor = useEditor({
     TableOfContents.configure({
       getIndex: getHierarchicalIndexes,
       onUpdate: (content) => {
-        items.value = content;
-      },
+        items.value = content
+      }
     }),
     Placeholder.configure({
-      placeholder: "请输入内容",
+      placeholder: '请输入内容'
     }),
     CodeBlockLowlight,
     NodeRange.configure({
       // allow to select only on depth 0
       // depth: 0,
-      key: null,
+      key: null
     }),
     Mathematics, // 数学公式
     drawIoExtension.configure({
-      openDialog: "dblclick",
-    }),
+      openDialog: 'dblclick'
+    })
   ],
-  autofocus: "end",
+  autofocus: 'end',
   editable: true,
   injectCSS: true,
   onUpdate: (e) => {
-    console.log(e);
-    content.value = editor.value.getHTML();
-  },
-});
-watch(content, (val) => {
-  const isSame = editor.value.getHTML() === val;
-  if (isSame) {
-    return;
+    console.log(e)
+    content.value = editor.value.getHTML()
   }
-  editor.value.commands.setContent(val, false);
-});
+})
+watch(content, (val) => {
+  const isSame = editor.value.getHTML() === val
+  if (isSame) {
+    return
+  }
+  editor.value.commands.setContent(val, false)
+})
 onUnmounted(() => {
-  editor.value.destroy();
-});
+  editor.value.destroy()
+})
 </script>
 
 <style lang="less">
 .main {
   display: flex;
   flex-direction: row;
-
+  height: 100%;
+  & > div {
+    height: 100%;
+  }
   @media (max-width: 540px) {
     flex-direction: column-reverse;
   }
@@ -98,17 +93,15 @@ onUnmounted(() => {
     width: 100%;
   }
 }
-::selection {
-  background-color: #70cff850;
-}
 
 .ProseMirror {
-  padding: 1rem 1rem 1rem 0;
-
+  height: 100%;
   * {
     margin-top: 0.75em;
   }
-
+  &.ProseMirror-focused {
+    outline: none;
+  }
   .ProseMirror-widget * {
     margin-top: auto;
   }
@@ -137,7 +130,7 @@ onUnmounted(() => {
     position: absolute;
     pointer-events: none;
     z-index: -1;
-    content: "";
+    content: '';
     top: -0.25rem;
     left: -0.25rem;
     right: -0.25rem;
@@ -154,7 +147,7 @@ onUnmounted(() => {
     justify-content: center;
     width: 1rem;
     height: 1.25rem;
-    content: "⠿";
+    content: '⠿';
     font-weight: 700;
     cursor: grab;
     background: #0d0d0d10;
@@ -172,8 +165,9 @@ onUnmounted(() => {
 
 .tiptap {
   min-height: 100px;
-  border: 1px solid #ccc;
-  padding: 10px;
+  border: 0;
+  padding: 1rem 1rem 1rem 2rem;
+
   :first-child {
     margin-top: 0;
   }
@@ -238,7 +232,7 @@ onUnmounted(() => {
     background: var(--black);
     border-radius: 0.5rem;
     color: var(--white);
-    font-family: "JetBrainsMono", monospace;
+    font-family: 'JetBrainsMono', monospace;
     margin: 1.5rem 0;
     padding: 0.75rem 1rem;
 
@@ -288,80 +282,79 @@ onUnmounted(() => {
     display: inline-block;
   }
 }
-.sidebar {
-  border-right: 1px solid var(--gray-3);
-  flex-grow: 0;
-  flex-shrink: 0;
-  padding: 1rem;
-  width: 15rem;
-  position: sticky;
-  // height: 100vh;
-  top: 0;
+// .sidebar {
+//   flex-grow: 0;
+//   flex-shrink: 0;
+//   padding: 1rem;
+//   width: 15rem;
+//   position: sticky;
+//   // height: 100vh;
+//   top: 0;
 
-  @media (min-width: 800px) {
-    width: 20rem;
-  }
+//   @media (min-width: 800px) {
+//     width: 20rem;
+//   }
 
-  @media (max-width: 540px) {
-    border-bottom: 1px solid var(--gray-3);
-    border-left: unset;
-    width: 100%;
-    height: auto;
-    position: unset;
-    padding: 1.5rem;
-  }
-}
+//   @media (max-width: 540px) {
+//     border-bottom: 1px solid var(--gray-3);
+//     border-left: unset;
+//     width: 100%;
+//     height: auto;
+//     position: unset;
+//     padding: 1.5rem;
+//   }
+// }
 
-.sidebar-options {
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  gap: 1rem;
-  position: sticky;
-  top: 1rem;
-}
+// .sidebar-options {
+//   align-items: flex-start;
+//   display: flex;
+//   flex-direction: column;
+//   height: 100%;
+//   gap: 1rem;
+//   position: sticky;
+//   top: 1rem;
+// }
 
-.table-of-contents {
-  display: flex;
-  flex-direction: column;
-  font-size: 0.875rem;
-  gap: 0.25rem;
-  overflow: auto;
-  text-decoration: none;
+// .table-of-contents {
+//   display: flex;
+//   flex-direction: column;
+//   font-size: 0.875rem;
+//   gap: 0.25rem;
+//   overflow: auto;
+//   text-decoration: none;
 
-  > div {
-    border-radius: 0.25rem;
-    padding-left: calc(0.875rem * (var(--level) - 1));
-    transition: all 0.2s cubic-bezier(0.65, 0.05, 0.36, 1);
+//   > div {
+//     border-radius: 0.25rem;
+//     padding-left: calc(0.875rem * (var(--level) - 1));
+//     transition: all 0.2s cubic-bezier(0.65, 0.05, 0.36, 1);
 
-    &:hover {
-      background-color: var(--gray-2);
-    }
-  }
+//     &:hover {
+//       background-color: var(--gray-2);
+//     }
+//   }
 
-  .empty-state {
-    color: var(--gray-5);
-    user-select: none;
-  }
+//   .empty-state {
+//     color: var(--gray-5);
+//     user-select: none;
+//   }
 
-  .is-active a {
-    color: var(--purple);
-  }
+//   .is-active a {
+//     color: var(--purple);
+//   }
 
-  .is-scrolled-over a {
-    color: var(--gray-5);
-  }
+//   .is-scrolled-over a {
+//     color: var(--gray-5);
+//   }
 
-  a {
-    color: var(--black);
-    display: flex;
-    gap: 0.25rem;
-    text-decoration: none;
+//   a {
+//     color: var(--black);
+//     display: flex;
+//     gap: 0.25rem;
+//     text-decoration: none;
 
-    &::before {
-      content: attr(data-item-index) ".";
-    }
-  }
-}
+//     &::before {
+//       content: attr(data-item-index) ".";
+//     }
+//   }
+// }
 </style>

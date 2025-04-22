@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2025-03-11 15:49:49
  * @LastEditors: cyy
- * @LastEditTime: 2025-03-20 12:33:03
+ * @LastEditTime: 2025-04-22 18:03:48
  * @Description: 
 -->
 <script setup>
@@ -135,7 +135,7 @@ a-layout-sider(
       padding: 2px;
       // margin-right: 10px;
     }
-    border-bottom: 1px solid #cccccc5e;
+    border-bottom: 1px solid var(--border-color);
   }
   :deep(.ant-menu) {
     background: transparent;
@@ -160,7 +160,7 @@ a-layout-sider(
     position: absolute;
     bottom: 0;
     width: 100%;
-    border-top: 1px solid #cccccc5e;
+    border-top: 1px solid var(--border-color);
     padding: 5px 0;
     button {
       padding: 4px;

@@ -1,5 +1,9 @@
-<template>
-  <div class="empty-state">
-    <p>Start editing your document to see the outline.</p>
-  </div>
+<template lang="pug">
+.empty-state 没有目录
 </template>
+<style lang="less" scoped>
+.empty-state {
+  text-align: center;
+  color: #999;
+}
+</style>

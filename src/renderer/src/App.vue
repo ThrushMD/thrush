@@ -18,8 +18,8 @@ a-config-provider(:theme="appTheme")
   height: calc(~"100vh - 56px");
   overflow: auto;
   .ant-layout-content {
+    margin: 0 10px 10px 10px;
     &>div {
-      padding: 0 20px;
       height: 100%;
       overflow: auto;
     }
