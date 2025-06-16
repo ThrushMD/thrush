@@ -1,0 +1,74 @@
+{
+  "productName": "Thrush",
+  "description": "A markdown editor",
+  "name": "thrush",
+  "version": "0.0.1",
+  "main": "./out/main/index.js",
+  "keywords": [
+    "markdown",
+    "milkdown",
+    "vue"
+  ],
+  "author": {
+    "name": "cyyjs",
+    "email": "cyyjs@cyyjs.top",
+    "url": "https://github.com/cyyjs"
+  },
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ThrushMD/thrush.git"
+  },
+  "license": "MIT",
+  "scripts": {
+    "format": "prettier --write .",
+    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+    "start": "electron-vite preview",
+    "dev": "electron-vite dev -w",
+    "build": "electron-vite build",
+    "postinstall": "electron-builder install-app-deps",
+    "build:unpack": "npm run build && electron-builder --dir",
+    "build:win": "npm run build && electron-builder --win",
+    "build:mac": "npm run build && electron-builder --mac",
+    "build:linux": "npm run build && electron-builder --linux"
+  },
+  "dependencies": {
+    "@electron-toolkit/preload": "^3.0.2",
+    "@electron-toolkit/utils": "^4.0.0",
+    "electron-updater": "^6.6.2"
+  },
+  "devDependencies": {
+    "@cyyjs/editor": "workspace:*",
+    "@electron-toolkit/eslint-config": "^2.1.0",
+    "@rushstack/eslint-patch": "^1.11.0",
+    "@vitejs/plugin-vue": "^5.2.3",
+    "@vue/eslint-config-prettier": "^10.2.0",
+    "@vue/language-plugin-pug": "^2.2.10",
+    "ant-design-vue": "^4.2.6",
+    "electron": "^35.2.0",
+    "electron-builder": "^26.0.12",
+    "electron-vite": "^3.1.0",
+    "es-toolkit": "^1.35.0",
+    "eslint": "^9.25.1",
+    "eslint-plugin-vue": "^10.0.0",
+    "fast-glob": "^3.3.3",
+    "install": "^0.13.0",
+    "less": "^4.3.0",
+    "pinia": "^3.0.2",
+    "prettier": "^3.5.3",
+    "pug": "^3.0.3",
+    "turbo": "^2.5.0",
+    "unplugin-vue-components": "^28.5.0",
+    "vite": "^6.3.2",
+    "vite-plugin-svg-icons": "^2.0.1",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "packageManager": "pnpm@10.9.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron",
+      "esbuild"
+    ]
+  }
+}
