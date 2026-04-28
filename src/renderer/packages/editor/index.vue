@@ -94,6 +94,7 @@ onUnmounted(() => {
 
   .editor {
     width: 100%;
+    position: relative;
   }
 }
 
